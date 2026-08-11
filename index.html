@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manal Aldosari - Customer Experience Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES — Edit colors/fonts here
+   ============================================================ */
+:root {
+  --cream:       #FAF7F2;
+  --cream-mid:   #EDE8DF;
+  --cream-dark:  #DDD5C8;
+  --terra:       #C07A5E;
+  --terra-dark:  #A05E44;
+  --mauve:       #8B6F7A;
+  --ink:         #2A1F1A;
+  --ink-light:   #5A4A42;
+  --white:       #FFFFFF;
+  --nav-height:  72px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  background: rgba(250,247,242,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(42,31,26,0.08); }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav-logo span { color: var(--terra); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--terra);
+  transition: width 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--terra); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--ink);
+  transition: all 0.3s;
+}
+
+/* ============================================================
+   PAGE SECTIONS
+   ============================================================ */
+.page { display: none; padding-top: var(--nav-height); min-height: 100vh; }
+.page.active { display: block; }
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
+#home {
+  display: none;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+#home.active { display: flex; }
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--nav-height));
+  margin-top: var(--nav-height);
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem 5rem 6rem;
+  position: relative;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+.hero-eyebrow span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.hero-eyebrow .line { width: 40px; height: 1px; background: var(--terra); }
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  animation: fadeUp 0.8s 0.15s ease forwards;
+  opacity: 0;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--terra);
+}
+
+.hero-title {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink-light);
+  animation: fadeUp 0.8s 0.3s ease forwards;
+  opacity: 0;
+}
+
+.hero-tagline {
+  margin-top: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--mauve);
+  max-width: 380px;
+  line-height: 1.7;
+  animation: fadeUp 0.8s 0.45s ease forwards;
+  opacity: 0;
+}
+
+.hero-ctas {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  animation: fadeUp 0.8s 0.6s ease forwards;
+  opacity: 0;
+}
+
+.btn-primary {
+  padding: 0.85rem 2rem;
+  background: var(--terra);
+  color: white;
+  border: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+
+.btn-secondary {
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+}
+.btn-secondary:hover { border-color: var(--terra); color: var(--terra); }
+
+.hero-right {
+  position: relative;
+  background: var(--cream-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-photo-frame {
+  width: 70%;
+  aspect-ratio: 3/4;
+  position: relative;
+  animation: fadeIn 1s 0.4s ease forwards;
+  opacity: 0;
+}
+
+.hero-photo-frame .photo-bg {
+  width: 100%;
+  height: 100%;
+  background: var(--cream-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--ink-light);
+}
+.photo-bg .photo-icon { font-size: 3rem; opacity: 0.4; }
+.photo-bg .photo-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; }
+
+.hero-photo-frame .corner-accent {
+  position: absolute;
+  width: 40px; height: 40px;
+  border-color: var(--terra);
+  border-style: solid;
+}
+.corner-accent.tl { top: -12px; left: -12px; border-width: 2px 0 0 2px; }
+.corner-accent.br { bottom: -12px; right: -12px; border-width: 0 2px 2px 0; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--cream-dark);
+}
+.stat-block {
+  padding: 2rem 6rem 2rem 6rem;
+  border-right: 1px solid var(--cream-dark);
+  animation: fadeUp 0.8s 0.75s ease forwards;
+  opacity: 0;
+}
+.stat-block:last-child { border-right: none; }
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--terra);
+}
+.stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   SECTION SHARED STYLES
+   ============================================================ */
+.section-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+.section-header {
+  margin-bottom: 4rem;
+}
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.section-eyebrow span {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.section-eyebrow .line { width: 32px; height: 1px; background: var(--terra); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.section-title em { font-style: italic; color: var(--terra); }
+.section-sub {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--ink-light);
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-photo-wrap {
+  position: sticky;
+  top: calc(var(--nav-height) + 2rem);
+}
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--cream-mid);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--ink-light);
+  position: relative;
+}
+.about-photo .photo-icon { font-size: 4rem; opacity: 0.35; }
+.about-photo .photo-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; }
+
+.about-accent-line {
+  margin-top: 1.5rem;
+  height: 3px;
+  background: linear-gradient(to right, var(--terra), var(--mauve), transparent);
+}
+
+.about-content {}
+.about-bio {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--mauve);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.about-text {
+  font-size: 0.97rem;
+  color: var(--ink-light);
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+
+.values-grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.value-card {
+  padding: 1.5rem;
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.value-card:hover { border-color: var(--terra); transform: translateY(-2px); }
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--terra);
+  transition: height 0.3s;
+}
+.value-card:hover::before { height: 100%; }
+.value-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.value-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.value-desc { font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; }
+
+/* ============================================================
+   EXPERIENCE PAGE
+   ============================================================ */
+#experience { background: var(--cream); }
+
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--terra), var(--cream-dark));
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3.5rem;
+  padding-left: 2rem;
+  animation: fadeLeft 0.6s ease forwards;
+  opacity: 0;
+}
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+.timeline-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.4rem;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--terra);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--terra);
+}
+
+.job-period {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 0.4rem;
+}
+.job-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+.job-company {
+  font-size: 0.88rem;
+  color: var(--mauve);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.job-desc {
+  font-size: 0.92rem;
+  color: var(--ink-light);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+}
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.job-tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--cream-mid);
+  border: 1px solid var(--cream-dark);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+}
+
+/* ============================================================
+   SKILLS PAGE
+   ============================================================ */
+#skills { background: var(--ink); color: var(--cream); }
+
+#skills .section-title { color: var(--cream); }
+#skills .section-sub { color: var(--cream-dark); }
+#skills .section-eyebrow span { color: var(--terra); }
+
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.skill-category-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--terra);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.skill-bar-item {
+  margin-bottom: 1.25rem;
+}
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--cream-mid);
+  letter-spacing: 0.04em;
+}
+.skill-bar-track {
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--terra), var(--mauve));
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.tool-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.tool-chip {
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--cream-mid);
+  transition: border-color 0.2s, color 0.2s;
+  cursor: default;
+}
+.tool-chip:hover { border-color: var(--terra); color: var(--terra); }
+
+.soft-skills {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.soft-skill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.83rem;
+  color: var(--cream-mid);
+}
+.soft-skill::before {
+  content: '◆';
+  color: var(--terra);
+  font-size: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   CERTIFICATES PAGE
+   ============================================================ */
+#certificates { background: var(--cream-mid); }
+
+/* ===== HOW TO ADD A CERTIFICATE =====
+   Find the CERTIFICATES DATA section in the JS below.
+   Add a new object to the array. That's it!
+   ===================================== */
+.cert-filter {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.filter-btn {
+  padding: 0.45rem 1.25rem;
+  background: transparent;
+  border: 1.5px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: white;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.cert-card {
+  background: var(--white);
+  padding: 2rem;
+  border: 1px solid var(--cream-dark);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(42,31,26,0.1);
+}
+.cert-card .card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--terra), var(--mauve));
+}
+
+.cert-icon { font-size: 2rem; margin-bottom: 1rem; }
+.cert-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.cert-issuer {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 0.6rem;
+}
+.cert-date {
+  font-size: 0.78rem;
+  color: var(--ink-light);
+}
+.cert-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  padding: 0.2rem 0.6rem;
+  background: var(--cream-mid);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+.cert-badge.new {
+  background: var(--terra);
+  color: white;
+}
+
+/* ============================================================
+   TESTIMONIALS PAGE
+   ============================================================ */
+#testimonials { background: var(--cream); }
+
+.testimonials-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.testimonial-card {
+  background: var(--white);
+  padding: 2.5rem;
+  border: 1px solid var(--cream-dark);
+  position: relative;
+  transition: transform 0.25s;
+}
+.testimonial-card:hover { transform: translateY(-3px); }
+.testimonial-card.featured {
+  grid-column: 1 / -1;
+  background: var(--ink);
+  border-color: transparent;
+}
+
+.quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 0.5;
+  color: var(--terra);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+.testimonial-card.featured .quote-mark { color: var(--terra); opacity: 0.8; }
+
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-light);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+.testimonial-card.featured .testimonial-text {
+  font-size: 1.4rem;
+  color: var(--cream-mid);
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.author-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--cream-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.testimonial-card.featured .author-avatar { background: rgba(255,255,255,0.1); color: var(--cream); }
+.author-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.testimonial-card.featured .author-name { color: var(--cream); }
+.author-role {
+  font-size: 0.74rem;
+  color: var(--terra);
+}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+#contact { background: var(--cream-mid); }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-info {}
+.contact-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-light);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.25s, transform 0.2s;
+  cursor: pointer;
+}
+.contact-link:hover { border-color: var(--terra); transform: translateX(4px); }
+.link-icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+.link-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terra);
+  display: block;
+  margin-bottom: 0.1rem;
+}
+.link-value { font-size: 0.88rem; color: var(--ink-light); }
+
+.contact-form {}
+.form-group { margin-bottom: 1.5rem; }
+.form-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: var(--white);
+  border: 1.5px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.92rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--terra); }
+.form-textarea { min-height: 130px; }
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--terra);
+  color: white;
+  border: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.form-submit:hover { background: var(--terra-dark); }
+
+.form-success {
+  display: none;
+  padding: 1rem;
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--terra);
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--ink);
+  color: var(--cream-dark);
+  padding: 2.5rem 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+footer .footer-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--cream);
+}
+footer .footer-copy { opacity: 0.5; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-15px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; flex-direction: column; position: fixed; top: var(--nav-height); left: 0; right: 0; background: var(--cream); padding: 2rem; border-bottom: 1px solid var(--cream-dark); gap: 1.5rem; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+  .home-hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 300px; }
+  .hero-left { padding: 3rem 1.5rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .stat-block { padding: 1.5rem; }
+  .about-grid, .contact-layout { grid-template-columns: 1fr; }
+  .about-photo-wrap { position: static; }
+  .skills-layout { grid-template-columns: 1fr; }
+  .testimonials-layout { grid-template-columns: 1fr; }
+  .testimonial-card.featured { grid-column: auto; }
+  footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 2rem 1.5rem; }
+  .section-wrap { padding: 4rem 1.5rem; }
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="showPage('home')">
+    <!-- ✏️ Edit: Replace with your initials or name abbreviation -->
+    <span>M</span>anal
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="showPage('home')" class="active" data-page="home">Home</a></li>
+    <li><a onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a onclick="showPage('experience')" data-page="experience">Experience</a></li>
+    <li><a onclick="showPage('skills')" data-page="skills">Skills</a></li>
+    <li><a onclick="showPage('certificates')" data-page="certificates">Certificates</a></li>
+    <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div id="home" class="page active">
+  <div class="home-hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="line"></div>
+        <!-- ✏️ Edit: Your professional descriptor -->
+        <span>Customer Experience Specialist</span>
+      </div>
+      <!-- ✏️ Edit: Your name -->
+      <h1 class="hero-name">Manal<br><em>Aldosari</em></h1>
+      <!-- ✏️ Edit: Your subtitle -->
+      <p class="hero-title">Customer Experience · Client Success · Team Leadership</p>
+      <!-- ✏️ Edit: Your personal tagline -->
+      <p class="hero-tagline">"Turning everyday interactions into lasting impressions — one conversation at a time."</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('contact')">Get in Touch</button>
+        <button class="btn-secondary" onclick="showPage('experience')">View My Work</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-frame">
+        <img src="images/manaltr.png" style="width:100%;height:100%;object-fit:cover;">
+        <div class="corner-accent tl"></div>
+        <div class="corner-accent br"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <!-- ✏️ Edit: Your career stats -->
+    <div class="stat-block">
+      <div class="stat-number">2+</div>
+      <div class="stat-label">Years in CX</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Avg. CSAT Score</div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-name">Manal Aldosari</div>
+    <!-- ✏️ Edit: Your location/tagline -->
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     ABOUT PAGE
+     ============================================================ -->
+<div id="about" class="page">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="line"></div><span>My Story</span></div>
+      <h2 class="section-title">Passionate about<br><em>people-first</em> service</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="images/manaltr.png" style="width:100%;height:100%;object-fit:cover;">
+        <div class="about-accent-line"></div>
+      </div>
+      <div class="about-content">
+        <!-- ✏️ Edit: Your opening quote/tagline -->
+        <p class="about-bio">"I believe every customer touchpoint is an opportunity to build trust, loyalty, and a story worth sharing!"</p>
+        <!-- ✏️ Edit: Your bio paragraphs -->
+        <p class="about-text">With two years in customer experience, I've had the privilege of shaping support teams, designing customer journeys, and turning frustrated callers into brand advocates. My background spans retail, SaaS, and hospitality — and the through-line in all of it has been a deep commitment to empathy-driven service.</p>
+        <p class="about-text">I thrive in roles where I can blend strategic thinking with hands-on problem-solving. Whether it's streamlining a ticketing system, coaching a new agent, or personally resolving an escalated complaint, I show up with the same energy: curious, calm, and genuinely invested in the outcome.</p>
+        <!-- ✏️ Edit: Your core values — update icon, title, and description -->
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">💬</div>
+            <div class="value-title">Empathy First</div>
+            <div class="value-desc">Every customer has a story. I listen to understand, not just to respond.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">📊</div>
+            <div class="value-title">Data-Informed</div>
+            <div class="value-desc">I use CSAT and NPS metrics to drive continuous improvement.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <div class="value-title">Team Builder</div>
+            <div class="value-desc">Great CX starts with great teams. I invest in people as much as process.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">⚡</div>
+            <div class="value-title">Solutions Focus</div>
+            <div class="value-desc">Problems are just puzzles. I stay calm and creative under pressure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-name">Manal Aldosari</div>
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     EXPERIENCE PAGE
+     ============================================================ -->
+<div id="experience" class="page">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="line"></div><span>Work History</span></div>
+      <h2 class="section-title">Where I've made<br><em>an impact</em></h2>
+      <p class="section-sub">A track record of turning customer challenges into measurable wins.</p>
+    </div>
+    <!-- Timeline is rendered by JS from the EXPERIENCE DATA array below -->
+    <div class="timeline" id="experienceTimeline"></div>
+  </div>
+  <footer>
+    <div class="footer-name">Manal Aldosari</div>
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     SKILLS PAGE
+     ============================================================ -->
+<div id="skills" class="page">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="line"></div><span>Expertise</span></div>
+      <h2 class="section-title">Skills that <em>move the needle</em></h2>
+      <p class="section-sub">A blend of interpersonal depth and operational precision.</p>
+    </div>
+    <!-- Skills are rendered by JS from the SKILLS DATA below -->
+    <div class="skills-layout" id="skillsLayout"></div>
+  </div>
+  <footer style="background:rgba(255,255,255,0.05);">
+    <div class="footer-name">Manal Aldosari</div>
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     CERTIFICATES PAGE
+     ============================================================ -->
+<div id="certificates" class="page">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="line"></div><span>Credentials</span></div>
+      <h2 class="section-title">Certificates &amp;<br><em>Qualifications</em></h2>
+      <p class="section-sub">Continuously learning, growing, and staying sharp.</p>
+    </div>
+    <div class="cert-filter" id="certFilter"></div>
+    <div class="cert-grid" id="certGrid"></div>
+  </div>
+  <footer>
+    <div class="footer-name">Manal Aldosari</div>
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     CONTACT PAGE
+     ============================================================ -->
+<div id="contact" class="page">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="line"></div><span>Let's Connect</span></div>
+      <h2 class="section-title">Ready to bring<br><em>CX excellence</em> to your team</h2>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <p class="contact-tagline">"The best time to talk about how I can help your customers is right now."</p>
+        <div class="contact-links">
+          <!-- ✏️ Edit: Your contact details -->
+          <a class="contact-link" href="mailto:manalaldossari14@gmail.com">
+            <span class="link-icon">✉️</span>
+            <div>
+              <span class="link-label">Email</span>
+              <span class="link-value">manalaldossari14@gmail.com</span>
+            </div>
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/manal-aldosari-3a8479290/" target="_blank">
+            <span class="link-icon">🔗</span>
+              <div>
+                <span class="link-label">LinkedIn</span>
+                <span class="link-value">https://www.linkedin.com/in/manal-aldosari-3a8479290/</span>
+              </div>
+          </a>
+          <div class="contact-link">
+            <span class="link-icon">📍</span>
+            <div>
+              <span class="link-label">Location</span>
+              <span class="link-value">Riyadh, Saudi Arabia · Open to remote</span>
+            </div>
+          </div>
+          <a class="contact-link" href="images/resume.pdf" target="_blank" download>
+            <span class="link-icon">📄</span>
+              <div>
+                <span class="link-label">CV</span>
+                <span class="link-value">Download PDF</span>
+              </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="Jane Smith" id="formName">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="jane@company.com" id="formEmail">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="I'd love to discuss an opportunity with you..." id="formMsg"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send Message ✦</button>
+        <div class="form-success" id="formSuccess">Thank you! I'll be in touch soon ✦</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-name">Manal Aldosari</div>
+    <div class="footer-copy">Riyadh, Saudi Arabia · Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- ============================================================
+     ██████  DATA — EDIT YOUR CONTENT HERE ██████
+     ============================================================ -->
+<script>
+
+/* ═══════════════════════════════════════════════════════════
+   EXPERIENCE DATA
+   ✏️ Add/remove objects to update your work timeline.
+   Fields: period, title, company, description, tags[]
+   ═══════════════════════════════════════════════════════════ */
+const EXPERIENCE = [
+  {
+    period: "2025 – Present",
+    title: "Marketing Specialist",
+    company: "FlyAkeed",
+    description: "Optimizing B2B client satisfaction and travel resolution efficiency across complex booking workflows and GDS platforms.",
+    tags: ["B2B Operations", "Amadeus GDS", "CSAT Optimization", "Intercom"]
+  },
+  {
+    period: "2024 – 2025",
+    title: "Customer Service Representative",
+    company: "Saudia",
+    description: "Delivering high-volume operational excellence and flight issue resolution for Saudi Arabia’s national carrier while achieving top-tier CSAT and first-call resolution scores.",
+    tags: ["First-Call Resolution", "Aviation Operations", "CSAT Optimization", "Escalation Management"]
+  },
+  {
+    period: "2020",
+    title: "Trainee",
+    company: "Al-Aflaj General Hospital",
+    description: "Supported healthcare operations and medical reporting accuracy through structured database management and cross-functional data synthesis.",
+    tags: ["Healthcare Data Synthesis", "Patient Relations", "Knowledge Base", "Database Operations"]
+  },
+  // ✏️ Add more jobs here — copy the block above and edit the fields
+];
+
+/* ═══════════════════════════════════════════════════════════
+   SKILLS DATA
+   ✏️ Edit proficiency (0–100) and add/remove tools and soft skills.
+   ═══════════════════════════════════════════════════════════ */
+const SKILLS = {
+  core: [
+    { name: "Customer Satisfaction (CSAT/NPS)", level: 95 },
+    { name: "Complaint Resolution & De-escalation", level: 93 },
+    { name: "Customer Journey Mapping", level: 82 },
+    { name: "Team Training & Coaching", level: 88 },
+    { name: "Process Improvement", level: 85 },
+    { name: "Omnichannel Support", level: 90 },
+  ],
+  tools: [
+    "Amadeus", "Salesforce", "Intercom", "HubSpot",
+    "Freshdesk", "Jira Service Desk", "Microsoft Teams",
+    "Slack", "Looker", "Google Analytics", "Notion"
+  ],
+  soft: [
+    "Active Listening", "Empathy", "Conflict Resolution",
+    "Clear Communication", "Adaptability", "Patience",
+    "Critical Thinking", "Time Management", "Collaboration",
+    "Attention to Detail", "Resilience", "Positivity"
+  ]
+};
+
+/* ═══════════════════════════════════════════════════════════
+   CERTIFICATES DATA
+   ✏️ TO ADD A CERTIFICATE: Copy one of the objects below,
+      paste it at the top of the array, and fill in the fields.
+
+   Fields:
+     name     — Certificate name
+     issuer   — Issuing organization
+     date     — Month Year
+     category — One of: "CX & Service" | "Leadership" | "Technical" | "Sales"
+     icon     — Any emoji that fits
+     isNew    — true = shows "New" badge, false = no badge
+   ═══════════════════════════════════════════════════════════ */
+const CERTIFICATES = [
+  {
+    name: "Account Manager with Generative AI",
+    issuer: "Microsoft / Coursera",
+    date: "August 2026",
+    category: "CX & Service",
+    icon: "🏆",
+    isNew: true
+  },
+  {
+    name: "Microsoft Excel and Power BI",
+    issuer: "Al-Akmar Institute",
+    date: "July 2025",
+    category: "Technical",
+    icon: "☁️",
+    isNew: false
+  },
+  {
+    name: "Data Analysis Skills Using Excel",
+    issuer: "Imdad Knowledge Training Center",
+    date: "May 2024",
+    category: "Technical",
+    icon: "⚙️",
+    isNew: false
+  },
+  {
+    name: "Leadership Foundations",
+    issuer: "LinkedIn Learning",
+    date: "May 2023",
+    category: "Leadership",
+    icon: "🌟",
+    isNew: false
+  },
+  {
+    name: "Google Project Management Certificate",
+    issuer: "Google / Coursera",
+    date: "January 2023",
+    category: "Leadership",
+    icon: "📋",
+    isNew: false
+  },
+  // ✏️ ADD YOUR NEW CERTIFICATE HERE ↑
+  // { name: "...", issuer: "...", date: "...", category: "...", icon: "...", isNew: true }
+];
+
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER FUNCTIONS — You don't need to edit below this line
+   ═══════════════════════════════════════════════════════════ */
+
+function renderExperience() {
+  const el = document.getElementById('experienceTimeline');
+  el.innerHTML = EXPERIENCE.map(j => `
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-period">${j.period}</div>
+      <div class="job-title">${j.title}</div>
+      <div class="job-company">${j.company}</div>
+      <div class="job-desc">${j.description}</div>
+      <div class="job-tags">${j.tags.map(t => `<span class="job-tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+function renderSkills() {
+  const el = document.getElementById('skillsLayout');
+  el.innerHTML = `
+    <div>
+      <div class="skill-category-title">Core Competencies</div>
+      ${SKILLS.core.map(s => `
+        <div class="skill-bar-item">
+          <div class="skill-bar-label">
+            <span>${s.name}</span>
+            <span>${s.level}%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-level="${s.level}"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div>
+      <div class="skill-category-title">Tools & Platforms</div>
+      <div class="tool-cloud">
+        ${SKILLS.tools.map(t => `<span class="tool-chip">${t}</span>`).join('')}
+      </div>
+      <div class="skill-category-title" style="margin-top:2.5rem">Soft Skills</div>
+      <div class="soft-skills">
+        ${SKILLS.soft.map(s => `<div class="soft-skill">${s}</div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+let activeFilter = 'All';
+function renderCertificates(filter) {
+  const categories = ['All', ...new Set(CERTIFICATES.map(c => c.category))];
+  const filterEl = document.getElementById('certFilter');
+  filterEl.innerHTML = categories.map(c => `
+    <button class="filter-btn ${c === activeFilter ? 'active' : ''}" onclick="filterCerts('${c}')">${c}</button>
+  `).join('');
+
+  const list = filter === 'All' ? CERTIFICATES : CERTIFICATES.filter(c => c.category === filter);
+  document.getElementById('certGrid').innerHTML = list.map(c => `
+    <div class="cert-card">
+      <div class="card-accent"></div>
+      ${c.isNew ? '<div class="cert-badge new">New</div>' : '<div class="cert-badge">' + c.category + '</div>'}
+      <div class="cert-icon">${c.icon}</div>
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-issuer">${c.issuer}</div>
+      <div class="cert-date">Issued: ${c.date}</div>
+    </div>
+  `).join('');
+}
+function filterCerts(cat) {
+  activeFilter = cat;
+  renderCertificates(cat);
+}
+
+function animateSkillBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.level + '%';
+    });
+  }, 200);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION LOGIC
+   ═══════════════════════════════════════════════════════════ */
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(pageId);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === pageId);
+  });
+
+  // Close mobile menu
+  document.getElementById('navLinks').classList.remove('open');
+
+  // Animate skill bars when skills page shown
+  if (pageId === 'skills') animateSkillBars();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function submitForm() {
+  const name = document.getElementById('formName').value.trim();
+  const email = document.getElementById('formEmail').value.trim();
+  const msg = document.getElementById('formMsg').value.trim();
+  if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
+  document.getElementById('formSuccess').style.display = 'block';
+  document.getElementById('formName').value = '';
+  document.getElementById('formEmail').value = '';
+  document.getElementById('formMsg').value = '';
+  setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 4000);
+}
+
+// Nav shadow on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Initialize all dynamic sections
+renderExperience();
+renderSkills();
+renderCertificates('All');
+
+</script>
+</body>
+</html>
